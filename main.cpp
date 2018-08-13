@@ -20,39 +20,59 @@ using namespace std;
 using namespace bandit;
 
 void example1(const uint T, const uint RunNum){
-  const uint K = 10; //=arms.size();
-  const uint P = 8;  //=policies.size()
+  const uint K = 10; // =arms.size();
+  const uint P =8;  //=policies.size()
   RoundwiseLog log(K, P, T) ;
   vector<ArmPtr> arms;
   vector<PolicyPtr> policies;
   cout << "Simulating " << RunNum << " runs." << endl;
+  
+printf( "\n  in example1  T= %d,  RunNumb = %d", T, RunNum);
+  
+  //getchar();
   for(uint run=0;run<RunNum;++run){
     cout << "run=" << run << endl;
-    arms.clear();
-    arms.push_back( ArmPtr(new BernoulliArm(0.05)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.05)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.05)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.10)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.02)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.02)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.02)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
-    arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
-    if(K != arms.size()){
+    arms.clear(); 
+     double rtt =400;
+   arms.push_back( ArmPtr(new BernoulliArm(0.075)) );
+   arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
+  arms.push_back( ArmPtr(new BernoulliArm(0.05)) );
+  arms.push_back( ArmPtr(new BernoulliArm(0.02)) );
+   arms.push_back( ArmPtr(new BernoulliArm(0.02)) );
+  arms.push_back( ArmPtr(new BernoulliArm(0.088)) );
+  arms.push_back( ArmPtr(new BernoulliArm(0.05)) );
+ arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
+  arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
+ arms.push_back( ArmPtr(new BernoulliArm(0.01)) );
+  
+  if(K != arms.size()){
       cout << "arm size does not match" << endl;
       abort();
     }
-    policies.clear();
-    policies.push_back( PolicyPtr(new RandomPolicy(K)) );
-    policies.push_back( PolicyPtr(new EGreedyPolicy(K)) );
-    policies.push_back( PolicyPtr(new UCBPolicy(K)) );
-    policies.push_back( PolicyPtr(new MOSSPolicy(K)) );
-    policies.push_back( PolicyPtr(new UCBVPolicy(K)) );
-    policies.push_back( PolicyPtr(new KLUCBPolicy(K)) );
-    policies.push_back( PolicyPtr(new DMEDBinaryPolicy(K)) );
+  policies.clear();
+ 
+  policies.push_back( PolicyPtr(new RandomPolicy(K)) );
+     printf( "\n  in RandomPolicy");
+  
+  policies.push_back( PolicyPtr(new EGreedyPolicy(K)) );
+      printf( "\n  in EGreedyPolicy");
+   policies.push_back( PolicyPtr(new UCBPolicy(K)) );
+        printf( "\n  in UCBPolicy");
+   policies.push_back( PolicyPtr(new MOSSPolicy(K)) );
+ 	printf( "\n  in MOSSolicy");  
+  policies.push_back( PolicyPtr(new UCBVPolicy(K)) );
+	printf( "\n  in UCBVPolicy");
+
+   //j 
+   policies.push_back( PolicyPtr(new KLUCBPolicy(K)) );
+     printf( "\n  in  KLUUCBPolicy");
+   policies.push_back( PolicyPtr(new DMEDBinaryPolicy(K)) );
+      	printf( "\n  in  DMEDBinaryPolicy");
+  
     policies.push_back( PolicyPtr(new ThompsonBinaryPolicy(K)) );
-    if(P != policies.size()){
+     printf( "\n  in  ThompsonBinayPolicy");
+
+  if(P != policies.size()){
       cout << "policy size does not match" << endl;
       abort();
     }
@@ -68,16 +88,17 @@ void example1(const uint T, const uint RunNum){
   for(uint p=0;p<policies.size();++p){
     policyNames.push_back( policies[p]->toString() );
   }
-  RoundwiseLogWriter::logWrite(log, armNames, policyNames, T, "out/example1.txt", true, true);
+ RoundwiseLogWriter::logWrite(log, armNames, policyNames, T, "out/ucbv_out.txt", true, true);
 }
 
 int main(int argc, char *argv[]){
   cmdline::parser a;
-  a.add<uint>("runnum", 'r', "run number", false, 100);
-  a.add<uint>("roundnum", 't', "round number", false, 10000);
+  a.add<uint>("runnum", 'r', "run number", false, 1);
+  a.add<uint>("roundnum", 't', "round number", false, 1300);
   a.parse_check(argc, argv);
   const uint RunNum = a.get<uint>("runnum"), T=a.get<uint>("roundnum");
 
+  printf( "\n  in Main  T= %d   RunNumb =%d", T, RunNum);
   example1(T, RunNum);
 
   return 0;

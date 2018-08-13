@@ -35,11 +35,16 @@ public:
         return k;
       }
       double variance = getVariance(k);
-      //UCB-V index
+    
+	printf("\n  in UCBV variance  variance =%lf", variance);
+
+
+	  //UCB-V index
       indices[k] = (Gi[k]/Ni[k]) + sqrt( (2 * zeta * variance * log(n)) / (double)Ni[k] ) + 3 * amp * zeta * log(n)/(double)Ni[k];
     }
 
     int targetArm = vectorMaxIndex(indices);
+    printf("\n  in UCBV targetArm =%d", targetArm);
 
     return targetArm;
   }

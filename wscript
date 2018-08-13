@@ -1,7 +1,7 @@
 APPNAME = 'bandit'
 VERSION = '0.1.0'
 
-CXXFLAGS = ['-O2', '-Wall', '-Wextra', '-std=c++0x']
+CXXFLAGS = ['-O2', '-Wall', '-Wextra', '-std=c++0x', '-g']
 
 top = '.'
 out = 'build'

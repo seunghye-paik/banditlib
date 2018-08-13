@@ -1,4 +1,4 @@
-./compile
-./build/main -r 10
+./compile  -g 
+./build/main -r 2 
 rm regret.pdf
-python simpleplot.py out/example1.txt 
+// python simpleplot.py out/example1.txt 

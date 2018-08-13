@@ -26,6 +26,11 @@ public:
       }
       //UCB index
       indices[k] = (Gi[k]/Ni[k]) + sqrt( (alpha * log(n)) / (double)Ni[k] );
+
+   printf("\n  in UCB indices   =%10.7f", indices[k]);
+
+
+
     }
 
     int targetArm = vectorMaxIndex(indices);
